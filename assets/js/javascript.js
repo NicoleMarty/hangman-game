@@ -13,7 +13,7 @@ var nameObject = {
 };
 var letter = "abcdefghijklmnopqrstuvwxyz_".split("");
 
-var nameIndex = 0;
+var nameIndex;
 var wins = 0;
 var losses = 0;
 var gameEnd = false;
@@ -25,16 +25,6 @@ var winsElement = document.getElementById("wins-count")
 var allowedGuessesElement = document.getElementById("letters-guessed")
 var letterCountElement = document.getElementById("guesses-num")
 
-
-// This function is run whenever the user presses a key.
-document.onkeyup = function(event) {
-
-    // Determines which key was pressed.
-    var userGuess = event.key;
-    console.log(userGuess)
-    allowedGuessesElement.append(userGuess);
-    directionsText.textContent = "Guess another letter.";
-}
 
 // Computer chooses name
 var nameArray = ["cleopatra", "malala", "marie antoinette", "harriet tubman"];
@@ -49,6 +39,7 @@ if (currentChoice === "cleopatra") {
     console.log(nameObject.cleopatra)
     nameBuild = "cleopatra".split("");
     console.log(nameBuild)
+
 
 } else if (currentChoice === "malala") {
     currentNameElement.innerHTML = ["_ _ _ _ _ _"];
@@ -67,4 +58,57 @@ if (currentChoice === "cleopatra") {
     console.log(nameObject.harriettubman)
     nameBuild = "harriettubman".split("");
     console.log(nameBuild)
+}
+
+// This function is run whenever the user presses a key.
+document.onkeyup = function(event) {
+
+    // Determines which key was pressed.
+    var userGuess = event.key;
+    console.log(userGuess)
+
+    // Adds key pressed to Letters Guessed
+    allowedGuessesElement.append(userGuess);
+    directionsText.textContent = "Guess another letter.";
+
+    // Check if key pressed is letter
+
+    // Set condition for current name
+    if (currentChoice === "cleopatra") {
+        // Check if key pressed is in current name
+        var arrayLength = nameArray.length;
+        // Looping through nameArray.
+        for (var i = 0; i < arrayLength; i++) {
+            // If the first character in the current name is "c", alert the following message.
+            // If the second character in the current name is "l", alert the following message.
+            // Etc...
+            // Else return.
+            if (nameArray[i].charAt(0) === userGuess) {
+                console.log("Starts with a c!");
+            }
+            if (nameArray[i].charAt(1) === userGuess) {
+                console.log("Second letter is l!");
+            }
+            if (nameArray[i].charAt(2) === userGuess) {
+                console.log("Third letter is e!");
+            }
+            if (nameArray[i].charAt(3) === userGuess) {
+                console.log("Fourth letter is o!");
+            }
+            if (nameArray[i].charAt(4) === userGuess) {
+                console.log("Fifth letter is p!");
+            }
+            if (nameArray[i].charAt(5) === userGuess && nameArray[i].charAt(8) === userGuess) {
+                console.log("Sixth and ninth letters are a!");
+            }
+            if (nameArray[i].charAt(6) === userGuess) {
+                console.log("Seventh letter is t!");
+            }
+            if (nameArray[i].charAt(7) === userGuess) {
+                console.log("Eigth letter is r!");
+            } else {
+                return;
+            }
+        }
+    }
 }
