@@ -66,12 +66,11 @@ document.onkeyup = function(event) {
     // Determines which key was pressed.
     var userGuess = event.key;
     console.log(userGuess)
-
-    // Adds key pressed to Letters Guessed
-    allowedGuessesElement.append(userGuess);
-    directionsText.textContent = "Guess another letter.";
-
-    // Check if key pressed is letter
+    if (userGuess.valueOf(letter)) {
+        // Adds key pressed to Letters Guessed
+        allowedGuessesElement.append(userGuess);
+        directionsText.textContent = "Guess another letter.";
+    }
 
     // Set condition for current name
     if (currentChoice === "cleopatra") {
