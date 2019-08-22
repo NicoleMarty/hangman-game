@@ -19,7 +19,7 @@ var losses = 0;
 var gameEnd = false;
 var letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "_"];
 
-
+var directionsText = document.getElementById("directions-text");
 var currentNameElement = document.getElementById("current-choice")
 var userGuessElement = document.getElementById("user-guess")
 var winsElement = document.getElementById("wins-count")
@@ -34,8 +34,10 @@ document.onkeyup = function(event) {
     var userGuess = event.key;
     console.log(userGuess)
     allowedGuessesElement.append(userGuess);
+    directionsText.textContent = "Guess another letter.";
+}
 
-};
+
 
 
 var nameArray = ["cleopatra", "malala", "marie antoinette", "harriet tubman"];
