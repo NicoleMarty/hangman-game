@@ -11,13 +11,12 @@ var nameObject = {
     marieantoinette: "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _",
     harriettubman: "_ _ _ _ _ _ _ _ _ _ _ _ _"
 };
+var letter = "abcdefghijklmnopqrstuvwxyz_".split("");
+
 var nameIndex = 0;
-
-
 var wins = 0;
 var losses = 0;
 var gameEnd = false;
-var letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "_"];
 
 var directionsText = document.getElementById("directions-text");
 var currentNameElement = document.getElementById("current-choice")
@@ -37,13 +36,14 @@ document.onkeyup = function(event) {
     directionsText.textContent = "Guess another letter.";
 }
 
-
-
-
+// Computer chooses name
 var nameArray = ["cleopatra", "malala", "marie antoinette", "harriet tubman"];
 var name = Math.floor(Math.random() * nameArray.length);
 var currentChoice = nameArray[name];
 console.log(currentChoice);
+
+
+// Name builds with _ and letters
 if (currentChoice === "cleopatra") {
     currentNameElement.innerHTML = ["_ _ _ _ _ _ _ _ _"];
     console.log(nameObject.cleopatra)
@@ -67,4 +67,4 @@ if (currentChoice === "cleopatra") {
     console.log(nameObject.harriettubman)
     nameBuild = "harriettubman".split("");
     console.log(nameBuild)
-};
+}
