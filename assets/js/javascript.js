@@ -29,7 +29,7 @@ var numGuesses = 10;
 document.getElementById("guesses-num").innerHTML = numGuesses;
 
 // variable counting wins
-var wins = "0";
+var wins = 0;
 document.getElementById("wins-count").innerHTML = wins;
 var resetLettersGuessed = ""
 
@@ -40,7 +40,7 @@ var i;
 
 
 // Computer chooses name
-var nameArray = ["cleopatra", "malala", "marie antoinette", "harriet tubman"];
+var nameArray = ["cleopatra", "malala", "marieantoinette", "harriettubman"];
 var name = Math.floor(Math.random() * nameArray.length);
 var currentChoice = nameArray[name];
 console.log(currentChoice);
@@ -74,36 +74,63 @@ function lettersToGuess() {
     return numGuessesElement;
 }
 
-//
-//
+
+// GAME ON!
 document.onkeyup = function(event) {
     var letter = event.key;
     guessedLettersElement = letter.toLowerCase();
     var i;
-
     console.log("You have typed a letter: ".concat(letter));
 
+    // Comparing letter pressed to letters in word
     var positions = letterInWord(guessedLettersElement);
-
-    // This will alert correct and compare the letter guessed with the current word
     if (positions.length) {
         console.log("User has pressed a letter from word: " + letter);
-
         for (i = 0; i < positions.length; i++) {
             wordStatus[positions[i]] = guessedLettersElement;
             // replace progress Word underscore with letter pressed
             document.getElementById("current-choice").innerHTML = wordStatus.join(" ");
-            document.getElementById("letters-guessed").innerHTML = letter;
         }
     } else {
-        // alert("WRONG!");
         document.getElementById("letters-guessed").innerHTML = letter;
         // subtract a point from guesses left
         numGuesses--;
         document.getElementById("guesses-num").innerHTML = numGuesses;
     }
 
-};
 
-//
-//
+    // YOU ESCAPED HER WRATH THIS TIME!
+    if (lettersToGuess() === 0) {
+        var name = ['Yup! Onto the next one!']
+        var nextRound = name[Math.floor(Math.random() * name.length)];
+        alert(nextRound);
+
+
+        // reset guesses left
+        numGuesses = 10;
+        document.getElementById("guesses-num").innerHTML = numGuesses;
+
+        // reset letters guessed
+        document.getElementById("letters-guessed").innerHTML = resetLettersGuessed;
+
+        // computer chooses new word then makes underscores
+        currentChoice = nameArray[Math.floor(Math.random() * nameArray.length)].toLowerCase();
+        console.log(currentChoice);
+        wordStatus = [];
+        for (i = 0; i < currentChoice.length; i++) {
+            wordStatus.push("__");
+        }
+        document.getElementById("current-choice").innerHTML = wordStatus.join(" ");
+
+        // Increase wins
+        wins++;
+        document.getElementById("wins-count").innerHTML = wins;
+    }
+
+    //  OR...GAME OVER YOU LOSE AND RESET
+    if (numGuesses === 0) {
+        alert("OFF WITH YOUR HEAD!! The name was " + currentChoice);
+        location.reload();
+    }
+
+};
