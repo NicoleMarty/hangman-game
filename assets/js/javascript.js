@@ -3,7 +3,6 @@ console.log("page loaded");
 // Variables
 var currentChoice; // "current name" selected by computer
 var nameBuild = []; // number of letters in "current name"
-var numGuesses = 10; // number of letters guessed
 var lettersGuessed = []; // Store the guessed letters;
 var nameObject = {
     cleopatra: "_ _ _ _ _ _ _ _ _",
@@ -14,16 +13,30 @@ var nameObject = {
 var letter = "abcdefghijklmnopqrstuvwxyz_".split("");
 
 var nameIndex;
-var wins = 0;
+
 var losses = 0;
 var gameEnd = false;
 
 var directionsText = document.getElementById("directions-text");
+var numGuessesElement = document.getElementById("guesses-num")
+var winsElement = document.getElementById("wins-count")
 var currentNameElement = document.getElementById("current-choice")
 var userGuessElement = document.getElementById("user-guess")
-var winsElement = document.getElementById("wins-count")
-var allowedGuessesElement = document.getElementById("letters-guessed")
-var letterCountElement = document.getElementById("guesses-num")
+var guessedLettersElement = document.getElementById("letters-guessed")
+
+// variable counting number of guesses remaining
+var numGuesses = 10;
+document.getElementById("guesses-num").innerHTML = numGuesses;
+
+// variable counting wins
+var wins = "0";
+document.getElementById("wins-count").innerHTML = wins;
+var resetLettersGuessed = ""
+
+// This is an array that we will push the letters from the current word to
+// for comparison of whether the player's guess is correct or not
+var mysteryWord = [];
+var i;
 
 
 // Computer chooses name
@@ -31,83 +44,67 @@ var nameArray = ["cleopatra", "malala", "marie antoinette", "harriet tubman"];
 var name = Math.floor(Math.random() * nameArray.length);
 var currentChoice = nameArray[name];
 console.log(currentChoice);
-
-
-// Name builds with _ and letters
-if (currentChoice === "cleopatra") {
-    currentNameElement.innerHTML = ["_ _ _ _ _ _ _ _ _"];
-    console.log(nameObject.cleopatra)
-    nameBuild = "cleopatra".split("");
-    console.log(nameBuild)
-
-
-} else if (currentChoice === "malala") {
-    currentNameElement.innerHTML = ["_ _ _ _ _ _"];
-    console.log(nameObject.malala)
-    nameBuild = "malala".split("");
-    console.log(nameBuild)
-
-} else if (currentChoice === "marie antoinette") {
-    currentNameElement.innerHTML = ["_ _ _ _ _ _ _ _ _ _ _ _ _ _ _"];
-    console.log(nameObject.marieantoinette)
-    nameBuild = "marieantoinette".split("");
-    console.log(nameBuild)
-
-} else if (currentChoice === "harriet tubman") {
-    currentNameElement.innerHTML = ["_ _ _ _ _ _ _ _ _ _ _ _ _"];
-    console.log(nameObject.harriettubman)
-    nameBuild = "harriettubman".split("");
-    console.log(nameBuild)
+// Turns currentChoice into underscores
+var wordStatus = [];
+for (var i = 0; i < currentChoice.length; i++) {
+    wordStatus.push("__");
 }
-
-// This function is run whenever the user presses a key.
-document.onkeyup = function(event) {
-
-    // Determines which key was pressed.
-    var userGuess = event.key;
-    console.log(userGuess)
-
-    // Adds key pressed to Letters Guessed
-    allowedGuessesElement.append(userGuess);
-    directionsText.textContent = "Guess another letter.";
+document.getElementById("current-choice").innerHTML = wordStatus.join(" ");
 
 
-    // Set condition for current name
-    if (currentChoice === "cleopatra") {
-        // Check if key pressed is in current name
-        var arrayLength = nameArray.length;
-        // Looping through nameArray.
-        for (var i = 0; i < arrayLength; i++) {
-            // If the first character in the current name is "c", alert the following message.
-            // If the second character in the current name is "l", alert the following message.
-            // Etc...
-            // Else return.
-            if (nameArray[i].charAt(0) === userGuess) {
-                console.log("Starts with a c!");
-            }
-            if (nameArray[i].charAt(1) === userGuess) {
-                console.log("Second letter is l!");
-            }
-            if (nameArray[i].charAt(2) === userGuess) {
-                console.log("Third letter is e!");
-            }
-            if (nameArray[i].charAt(3) === userGuess) {
-                console.log("Fourth letter is o!");
-            }
-            if (nameArray[i].charAt(4) === userGuess) {
-                console.log("Fifth letter is p!");
-            }
-            if (nameArray[i].charAt(5) === userGuess && nameArray[i].charAt(8) === userGuess) {
-                console.log("Sixth and ninth letters are a!");
-            }
-            if (nameArray[i].charAt(6) === userGuess) {
-                console.log("Seventh letter is t!");
-            }
-            if (nameArray[i].charAt(7) === userGuess) {
-                console.log("Eigth letter is r!");
-            } else {
-                return;
-            }
-        }
+// function evaluating the positions of the given letter in the currentWord string
+// return empty array in case of failure
+function letterInWord(letter) {
+    // the array that will contain the char positions in the currentWord that has the 
+    var positions = new Array();
+    for (i = 0; i < currentChoice.length; i++) {
+        if (currentChoice[i] === letter)
+            positions.push(i);
     }
+    return positions;
 }
+
+// return number of letters that is still not guessed
+function lettersToGuess() {
+    var i;
+    var lettersRemaining = 0;
+    for (i in wordProgress) {
+        if (wordProgress[i] === "__")
+            lettersRemaining++;
+    }
+    return lettersRemaining;
+}
+
+//
+//
+document.onkeyup = function(event) {
+    var letter = event.key;
+    guessedLettersElement = letter.toLowerCase();
+    var i;
+
+    console.log("You have typed a letter: ".concat(letter));
+
+    var positions = letterInWord(guessedLettersElement);
+
+    // This will alert correct and compare the letter guessed with the current word
+    if (positions.length) {
+        console.log("User has pressed a letter from word: " + letter);
+
+        for (i = 0; i < positions.length; i++) {
+            wordStatus[positions[i]] = guessedLettersElement;
+            // replace progress Word underscore with letter pressed
+            document.getElementById("current-choice").innerHTML = wordStatus.join(" ");
+        }
+    } else {
+        // alert("WRONG!");
+        guessedLettersElement.innerHTML += guessedLettersElement + " ";
+    }
+    // subtract a point from guesses left
+    numGuessesElement;
+    i--;
+    document.getElementById("guesses-num").innerHTML = numGuessesElement;
+
+};
+
+//
+//
