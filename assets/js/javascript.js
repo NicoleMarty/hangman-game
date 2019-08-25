@@ -67,12 +67,11 @@ function letterInWord(letter) {
 // return number of letters that is still not guessed
 function lettersToGuess() {
     var i;
-    var lettersRemaining = 0;
-    for (i in wordProgress) {
-        if (wordProgress[i] === "__")
-            lettersRemaining++;
+    var numGuessesElement = 0;
+    for (i in wordStatus) {
+        if (wordStatus[i] === "__") numGuessesElement++;
     }
-    return lettersRemaining;
+    return numGuessesElement;
 }
 
 //
@@ -94,15 +93,15 @@ document.onkeyup = function(event) {
             wordStatus[positions[i]] = guessedLettersElement;
             // replace progress Word underscore with letter pressed
             document.getElementById("current-choice").innerHTML = wordStatus.join(" ");
+            document.getElementById("letters-guessed").innerHTML = letter;
         }
     } else {
         // alert("WRONG!");
-        guessedLettersElement.innerHTML += guessedLettersElement + " ";
+        document.getElementById("letters-guessed").innerHTML = letter;
+        // subtract a point from guesses left
+        numGuesses--;
+        document.getElementById("guesses-num").innerHTML = numGuesses;
     }
-    // subtract a point from guesses left
-    numGuessesElement;
-    i--;
-    document.getElementById("guesses-num").innerHTML = numGuessesElement;
 
 };
 
