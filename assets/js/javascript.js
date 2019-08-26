@@ -1,42 +1,20 @@
 console.log("page loaded");
 
-// Variables
+// Initial Variables
 var currentChoice; // "current name" selected by computer
-var nameBuild = []; // number of letters in "current name"
 var lettersGuessed = []; // Store the guessed letters;
-var nameObject = {
-    cleopatra: "_ _ _ _ _ _ _ _ _",
-    malala: "_ _ _ _ _ _",
-    marieantoinette: "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _",
-    harriettubman: "_ _ _ _ _ _ _ _ _ _ _ _ _"
-};
+var numGuesses = 10;
+document.getElementById("guesses-num").innerHTML = numGuesses;
 var letter = "abcdefghijklmnopqrstuvwxyz_".split("");
-
-var nameIndex;
-
-var losses = 0;
-var gameEnd = false;
+var wins = 0;
+document.getElementById("wins-count").innerHTML = wins;
+var resetLettersGuessed = ""
 
 var directionsText = document.getElementById("directions-text");
 var numGuessesElement = document.getElementById("guesses-num")
 var winsElement = document.getElementById("wins-count")
 var currentNameElement = document.getElementById("current-choice")
-var userGuessElement = document.getElementById("user-guess")
 var guessedLettersElement = document.getElementById("letters-guessed")
-
-// variable counting number of guesses remaining
-var numGuesses = 10;
-document.getElementById("guesses-num").innerHTML = numGuesses;
-
-// variable counting wins
-var wins = 0;
-document.getElementById("wins-count").innerHTML = wins;
-var resetLettersGuessed = ""
-
-// This is an array that we will push the letters from the current word to
-// for comparison of whether the player's guess is correct or not
-var mysteryWord = [];
-var i;
 
 
 // Computer chooses name
@@ -52,10 +30,9 @@ for (var i = 0; i < currentChoice.length; i++) {
 document.getElementById("current-choice").innerHTML = wordStatus.join(" ");
 
 
-// function evaluating the positions of the given letter in the currentWord string
-// return empty array in case of failure
+// function to evaluate letter position
 function letterInWord(letter) {
-    // the array that will contain the char positions in the currentWord that has the 
+    // array for char positions for currentChoice
     var positions = new Array();
     for (i = 0; i < currentChoice.length; i++) {
         if (currentChoice[i] === letter)
