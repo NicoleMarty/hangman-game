@@ -92,7 +92,7 @@ document.onkeyup = function(event) {
             document.getElementById("current-choice").innerHTML = wordStatus.join(" ");
         }
     } else {
-        document.getElementById("letters-guessed").innerHTML = letter;
+        document.getElementById("letters-guessed").innerHTML += letter;
         // subtract a point from guesses left
         numGuesses--;
         document.getElementById("guesses-num").innerHTML = numGuesses;
@@ -127,7 +127,7 @@ document.onkeyup = function(event) {
         document.getElementById("wins-count").innerHTML = wins;
     }
 
-    //  OR...GAME OVER YOU LOSE AND RESET
+    //  OR...GAME OVER OFF WITH YOUR HEAD AND RESET
     if (numGuesses === 0) {
         alert("OFF WITH YOUR HEAD!! The name was " + currentChoice);
         location.reload();
