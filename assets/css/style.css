@@ -3,7 +3,7 @@
 }
 
 body {
-    background-image: url(../images/marie-antoinette.jpg);
+    background-image: url(../images/background.jpg);
     background-color: #2BCDFF;
     color: #Ffffff;
     background-position: center;
@@ -13,6 +13,14 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.jumbotron {
+    background-image: url(../images/background.jpg);
+}
+
+.card {
+    background-image: url(../images/background.jpg);
+}
+
 .card-body {
-    color: black;
+    color: white;
 }
