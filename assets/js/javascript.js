@@ -51,7 +51,6 @@ function lettersToGuess() {
     return numGuessesElement;
 }
 
-
 // GAME ON!
 document.onkeyup = function(event) {
     var letter = event.key;
@@ -104,9 +103,25 @@ document.onkeyup = function(event) {
         document.getElementById("wins-count").innerHTML = wins;
     }
 
+
+
+
     //  OR...GAME OVER OFF WITH YOUR HEAD AND RESET
     if (numGuesses === 0) {
         alert("OFF WITH YOUR HEAD!! The name was " + currentChoice);
+        if (currentChoice === "cleopatra") {
+
+        }
+        if (currentChoice === "malala") {
+
+        }
+        if (currentChoice === "maireantoinette") {
+            document.animateCSS("#marie-antoinette", "slideInDown");
+        }
+        if (currentChoice === "harriettubman") {
+
+        }
+
         location.reload();
     }
 
