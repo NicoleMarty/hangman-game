@@ -1,3 +1,18 @@
 #marie-antoinette {
     animation-duration: 5s;
 }
+
+body {
+    background-image: url(../images/marie-antoinette.jpg);
+    background-color: #2BCDFF;
+    color: #Ffffff;
+    background-position: center;
+    background-position: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.card-body {
+    color: black;
+}
