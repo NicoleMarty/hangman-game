@@ -10,12 +10,12 @@ var wins = 0;
 document.getElementById("wins-count").innerHTML = wins;
 var resetLettersGuessed = ""
 
-var directionsText = document.getElementById("directions-text");
+var directionsText = document.getElementById("directions-text")
 var numGuessesElement = document.getElementById("guesses-num")
 var winsElement = document.getElementById("wins-count")
 var currentNameElement = document.getElementById("current-choice")
 var guessedLettersElement = document.getElementById("letters-guessed")
-
+var song = document.getElementById("#loserAudio")
 
 // Computer chooses name
 var nameArray = ["cleopatra", "malala", "marieantoinette", "harriettubman"];
@@ -51,6 +51,11 @@ function lettersToGuess() {
     return numGuessesElement;
 }
 
+// Audio function
+function loserSong() {
+    song.play();
+}
+
 // GAME ON!
 document.onkeyup = function(event) {
     var letter = event.key;
@@ -81,7 +86,6 @@ document.onkeyup = function(event) {
         var nextRound = name[Math.floor(Math.random() * name.length)];
         alert(nextRound);
 
-
         // reset guesses left
         numGuesses = 10;
         document.getElementById("guesses-num").innerHTML = numGuesses;
@@ -102,9 +106,6 @@ document.onkeyup = function(event) {
         wins++;
         document.getElementById("wins-count").innerHTML = wins;
     }
-
-
-
 
     //  OR...GAME OVER OFF WITH YOUR HEAD AND RESET
     if (numGuesses === 0) {
